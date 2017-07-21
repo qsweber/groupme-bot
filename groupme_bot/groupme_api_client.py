@@ -51,6 +51,9 @@ def get_messages(cutoff):
             if message['system']:
                 continue
 
+            if message['sender_type'] == 'bot':
+                continue
+
             user_names[message['sender_id']] = message['name']
             message_created = datetime.fromtimestamp(message['created_at'])
             messages[message['id']] = {

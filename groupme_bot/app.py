@@ -22,6 +22,25 @@ def _post_as_bot(text):
     )
 
 
+# def _check_double_post(data):
+#     if len(data['text'] > 100):
+#         lookbacks = [
+#             7, 30, 365, 700
+#         ]
+#         for lookback in lookbacks:
+#             messages, user_names = get_messages(
+#                 datetime.datetime.now() - datetime.timedelta(days=lookback)
+#             )
+#     messages_sorted = sorted(
+#         [
+#             (message, len(message['likers']))
+#             for message_id, message in messages.items()
+#         ],
+#         key=operator.itemgetter(1),
+#         reverse=True,
+#     )
+
+
 def _query_leaderboard(data):
     word_after_command = None
     check_next = False
@@ -35,7 +54,7 @@ def _query_leaderboard(data):
 
     try:
         lookback = int(word_after_command)
-    except ValueError:
+    except TypeError:
         lookback = LOOKBACK
 
     messages, user_names = get_messages(
