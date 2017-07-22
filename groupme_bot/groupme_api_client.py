@@ -54,6 +54,9 @@ def get_messages(cutoff):
             if message['sender_type'] == 'bot':
                 continue
 
+            if message['sender_id'] == os.environ.get('USER_TO_REPEAT'):
+                message['name'] = os.environ.get('USER_TO_REPEAT_NEW_NAME')
+
             user_names[message['sender_id']] = message['name']
             message_created = datetime.fromtimestamp(message['created_at'])
             messages[message['id']] = {
