@@ -86,6 +86,11 @@ def _query_leaderboard(data):
 def webhook():
     data = request.get_json()
 
+    if data['sender_id'] == os.environ.get('USER_TO_REPEAT'):
+        _post_as_bot(data['text'])
+
+        return 'ok', 200
+
     if (
         data.get('text').lower().startswith(os.environ['GROUPME_BOT_NAME']) and
         data.get('sender_type') != 'bot'
