@@ -93,6 +93,16 @@ def webhook():
 
         return 'ok', 200
 
+    if random.random() > 0.98:
+        if data.get('sender_type') != 'bot':
+            messages, user_names = get_messages(
+                datetime.datetime.now() - datetime.timedelta(days=700)
+            )
+            reply = os.environ.get('RANDOM_REPLY')
+            name = user_names[data['sender_id']]
+            if reply:
+                    _post_as_bot('{}, {}'.format(name, reply))
+
     if (
         data.get('text').lower().startswith(os.environ['GROUPME_BOT_NAME']) and
         data.get('sender_type') != 'bot'
