@@ -103,6 +103,8 @@ def webhook():
             if reply:
                     _post_as_bot('{}, {}'.format(name, reply))
 
+        return 'ok', 200
+
     if (
         data.get('text').lower().startswith(os.environ['GROUPME_BOT_NAME']) and
         data.get('sender_type') != 'bot'
