@@ -1,6 +1,7 @@
 import datetime
 import operator
 import os
+import random
 import requests
 
 from flask import Flask, request
@@ -87,7 +88,8 @@ def webhook():
     data = request.get_json()
 
     if data['sender_id'] == os.environ.get('USER_TO_REPEAT'):
-        _post_as_bot(data['text'])
+        if random.random() > 0.9:
+            _post_as_bot(data['text'])
 
         return 'ok', 200
 
