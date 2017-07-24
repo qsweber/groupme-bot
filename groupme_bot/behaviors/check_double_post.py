@@ -1,4 +1,5 @@
 import datetime
+import os
 import re
 import urllib
 
@@ -45,6 +46,12 @@ def main(data):
                                 message['created'].strftime('%B %d, %Y'),
                             )
                         )
+                        extra_response = os.getenv(
+                            'GROUPME_DOUBLE_POST_RESPONSE',
+                        )
+                        if extra_response:
+                            post_as_bot(extra_response)
+
                         return True
 
     return False
