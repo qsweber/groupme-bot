@@ -6,20 +6,21 @@ import requests
 BASE_URL = 'https://api.groupme.com/v3/'
 
 
-def _request_groupme(uri, params={}):
+def _get_groupme(uri, params={}):
     default_params = {'token': os.environ['GROUPME_TOKEN']}
     params.update(default_params)
 
     response = requests.get(BASE_URL + uri, params=params)
 
-    if response.status_code == 304:
-        return {}
-
     return json.loads(response.text)
 
 
+def _post_groupme(uri, data):
+    return requests.post(BASE_URL + uri, data=data)
+
+
 def _get_group_id():
-    response_data = _request_groupme('groups')
+    response_data = _get_groupme('groups')
     for group in response_data['response']:
         if group['name'] == os.environ['GROUPME_GROUP_NAME']:
             return group['id']
@@ -39,7 +40,7 @@ def get_messages(cutoff):
         if earliest_created_id:
             params['before_id'] = earliest_created_id
 
-        response_data = _request_groupme(
+        response_data = _get_groupme(
             'groups/{}/messages'.format(group_id),
             params=params,
         )
@@ -82,3 +83,21 @@ def get_messages(cutoff):
         counter += 1
 
     return messages, user_names
+
+
+def _is_bot_enabled():
+    return os.environ['GROUPME_BOT_ENABLED'] == '1'
+
+
+def post_as_bot(text):
+    if not _is_bot_enabled():
+        print(text)
+        return
+
+    return _post_groupme(
+        'bots/post',
+        data={
+            'bot_id': os.environ['GROUPME_BOT_ID'],
+            'text': text,
+        },
+    )
