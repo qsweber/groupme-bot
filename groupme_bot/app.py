@@ -48,7 +48,7 @@ def _index_data(data):
 
     try:
         func = QUERY_WORD_MAP[second_word]
-    except:
+    except KeyError:
         post_as_bot('Sorry, I can\'t help you with that.')
 
         return 'ok', 200
