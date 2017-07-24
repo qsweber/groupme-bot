@@ -36,6 +36,9 @@ def main(data):
         )
 
         for message_id, message in messages.items():
+            if message_id == data['id']:
+                continue
+
             if message['text']:
                 url = _url_from_text(message['text'])
                 if url:
