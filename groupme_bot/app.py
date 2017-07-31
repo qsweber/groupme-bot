@@ -1,4 +1,5 @@
 import os
+import string
 
 from flask import Flask, request
 
@@ -30,8 +31,8 @@ def _index_data(data):
     if data.get('sender_type') == 'bot':
         return 'ok', 200
 
-    if check_double_post.main(data):
-        return 'ok', 200
+    # if check_double_post.main(data):
+    #     return 'ok', 200
 
     if repeat_user.main(data):
         return 'ok', 200
@@ -39,7 +40,10 @@ def _index_data(data):
     if reply_random.main(data):
         return 'ok', 200
 
-    words = data.get('text').lower().split()
+    words = [
+        word.translate(None, string.punctuation)
+        for word in data.get('text').lower().split()
+    ]
     first_word = words.pop(0)
     if first_word != os.environ['GROUPME_BOT_NAME']:
         return 'ok', 200
