@@ -52,9 +52,6 @@ def get_messages(cutoff):
             if message['system']:
                 continue
 
-            if message['sender_type'] == 'bot':
-                continue
-
             if message['sender_id'] == os.environ.get('USER_TO_REPEAT'):
                 message['name'] = os.environ.get('USER_TO_REPEAT_NEW_NAME')
 

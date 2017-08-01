@@ -52,6 +52,10 @@ is the URL we will use on the GroupMe bot registration page.
 
 This will pull all of the data going back the specified number of days and return an ordered list of likes by username.
 
+![leaderboard](/../screenshots/leaderboard.png?raw=true "leaderboard")
+
 ## Double Post Check
 
 A frequent cause of tension in GroupMe is when somebody posts an article that has already been posted. This bot will constantly monitor for those situations and immediately reprimand any violators.
+
+![doublepost](/../screenshots/doublepost.png?raw=true "doublepost")
