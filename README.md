@@ -1,12 +1,11 @@
 # Groupme Bot
 
-This is a Groupme Bot that determines who in a group chat has received the
-most likes on their posts. It is invoked by mentioning the name of the bot
-and asking "who is in the lead".
+This is a Groupme Bot created primarily for determining who in a group chat has received the
+most likes on their posts. The full set of behaviors is listed below.
 
 # Setup
 
-## Create the bot on the Groupme Website
+## Create a bot on the Groupme Website
 
 Follow this tutorial. For now, leave the `Callback URL` blank.
 
@@ -14,7 +13,7 @@ Follow this tutorial. For now, leave the `Callback URL` blank.
 
     git clone https://github.com/qsweber/groupme-bot.git
 
-## Configure a heroku app
+## Create a heroku app
 
 Begin by changing to the local directory of this repo
 
@@ -29,10 +28,12 @@ is the URL we will use on the GroupMe bot registration page.
 
     heroku create
 
-## Add environment variables to heroku app
+## Set required environment variables
 
-    heroku config:set GROUPME_BOT_ID="<from GroupMe bot registration>"
-    heroku config:set GROUPME_GROUP_NAME="<name of GroupMe group>"
+    heroku config:set GROUPME_BOT_ENABLED="<switch for turning bot on and off>"
+    heroku config:set GROUPME_BOT_ID="<from GroupMe bot registration site>"
+    heroku config:set GROUPME_BOT_NAME="<from GroupMe bot registration site>"
+    heroku config:set GROUPME_GROUP_NAME="<switch for turning bot on and off>"
     heroku config:set GROUPME_TOKEN="<GroupMe developer token>"
 
 ## Deploy app
@@ -43,11 +44,14 @@ is the URL we will use on the GroupMe bot registration page.
 
     Copy the Heroku app URL onto the GroupMe bot registration page
 
-# Usage
+# Behaviors
 
-For now, the only supported feature is asking for who has the most likes.
-To do so, simply type `leader` into your GroupMe chat.
+## Leaderboard
 
-# Future Work
+    <bot name> leaderboard <number of days to lookback>
 
-Support multiple queries.
+This will pull all of the data going back the specified number of days and return an ordered list of likes by username.
+
+## Double Post Check
+
+A frequent cause of tension in GroupMe is when somebody posts an article that has already been posted. This bot will constantly monitor for those situations and immediately reprimand any violators.
