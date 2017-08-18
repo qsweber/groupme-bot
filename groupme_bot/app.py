@@ -67,6 +67,8 @@ def totals(days=None):
     days = request.args.get('days')
     if not days:
         days = 7
+    else:
+        days = int(days)
 
     totals = query_leaderboard.get_totals(days)
 
