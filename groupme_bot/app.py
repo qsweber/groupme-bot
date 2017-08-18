@@ -72,4 +72,7 @@ def totals(days=None):
 
     totals = query_leaderboard.get_totals(days)
 
-    return jsonify(totals)
+    response = jsonify(totals)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+
+    return response
