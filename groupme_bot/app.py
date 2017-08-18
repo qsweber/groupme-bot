@@ -1,7 +1,7 @@
 import os
 import string
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 from groupme_bot.behaviors import (
     check_double_post,
@@ -60,3 +60,14 @@ def _index_data(data):
     func(data, *words)
 
     return "ok", 200
+
+
+@app.route('/api/v1/totals', methods=['GET'])
+@app.route('/api/v1/totals?days=<days>', methods=['GET'])
+def totals(days=None):
+    if not days:
+        days = 7
+
+    totals = query_leaderboard.get_totals(days)
+
+    return jsonify(totals)
