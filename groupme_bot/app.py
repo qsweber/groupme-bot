@@ -31,8 +31,8 @@ def _index_data(data):
     if data.get('sender_type') == 'bot':
         return 'ok', 200
 
-    # if check_double_post.main(data):
-    #     return 'ok', 200
+    if check_double_post.main(data):
+        return 'ok', 200
 
     if repeat_user.main(data):
         return 'ok', 200

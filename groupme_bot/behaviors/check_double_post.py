@@ -1,22 +1,16 @@
 import datetime
 import os
 import re
-import urllib
 
 from groupme_bot.groupme_api_client import get_messages, post_as_bot
 
 
-def _simplify_text(text):
-    res = urllib.parse.urlparse(text)
-
-    return '.'.join(res.netloc.split('.')[-2:]) + res.path
-
-
 def _url_from_text(text):
-    pattern = "(https?):\/\/.*"
+    pattern = "(https?):\/\/(.*)"
     for word in text.split():
-        if re.search(pattern=pattern, string=word):
-            return _simplify_text(word)
+        result = re.search(pattern=pattern, string=word)
+        if result:
+            return result.groups(1)[1]
 
     return None
 
