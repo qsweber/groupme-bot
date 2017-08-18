@@ -63,8 +63,8 @@ def _index_data(data):
 
 
 @app.route('/api/v1/totals', methods=['GET'])
-@app.route('/api/v1/totals?days=<days>', methods=['GET'])
 def totals(days=None):
+    days = request.args.get('days')
     if not days:
         days = 7
 
