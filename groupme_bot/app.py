@@ -75,16 +75,30 @@ def _index_data(data):
 
 
 @app.route('/api/v1/totals', methods=['GET'])
-def totals(days=None):
-    days = request.args.get('days')
-    if not days:
-        days = 7
-    else:
-        days = int(days)
+def totals():
+    days = int(request.args.get('days', 7))
 
     totals = query_leaderboard.get_totals(days)
 
     response = jsonify(totals)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+
+    return response
+
+
+@app.route('/api/v1/already_posted', methods=['GET'])
+def already_posted(message=None):
+    message = request.args.get('message')
+
+    response_message = check_double_post.is_double_post({
+        'text': message,
+        'id': 0,
+        'user': 0,
+    })
+
+    response_data = {'display': response_message}
+
+    response = jsonify(response_data)
     response.headers.add('Access-Control-Allow-Origin', '*')
 
     return response

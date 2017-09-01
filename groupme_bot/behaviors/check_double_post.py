@@ -15,7 +15,7 @@ def _url_from_text(text):
     return None
 
 
-def main(data):
+def is_double_post(data):
     test_url = _url_from_text(data['text'])
 
     if not test_url:
@@ -37,18 +37,29 @@ def main(data):
                 url = _url_from_text(message['text'])
                 if url:
                     if url == test_url:
-                        post_as_bot(
-                            'Nice try! {} already posted that on {}'.format(
-                                user_names[message['user']],
-                                message['created'].strftime('%B %d, %Y'),
-                            )
-                        )
-                        extra_response = os.getenv(
-                            'GROUPME_DOUBLE_POST_RESPONSE',
-                        )
-                        if extra_response:
-                            post_as_bot(extra_response)
+                        if message['user'] == data['user']:
+                            poster = 'you'
+                        else:
+                            poster = user_names[message['user']]
 
-                        return True
+                        return 'Nice try! {} already posted that on {}'.format(
+                            poster,
+                            message['created'].strftime('%B %d, %Y'),
+                        )
+
+    return False
+
+
+def main(data):
+    response_message = is_double_post(data)
+    if response_message:
+        post_as_bot(response_message)
+        extra_response = os.getenv(
+            'GROUPME_DOUBLE_POST_RESPONSE',
+        )
+        if extra_response:
+            post_as_bot(extra_response)
+
+        return True
 
     return False
