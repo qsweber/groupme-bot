@@ -1,9 +1,12 @@
 from datetime import datetime
+import logging
 import json
 import os
 import requests
 
 BASE_URL = 'https://api.groupme.com/v3/'
+
+logger = logging.getLogger(__name__)
 
 
 def _get_groupme(uri, params={}):
@@ -88,7 +91,7 @@ def _is_bot_enabled():
 
 def post_as_bot(text):
     if not _is_bot_enabled():
-        print(text)
+        logger.info(text)
         return
 
     return _post_groupme(

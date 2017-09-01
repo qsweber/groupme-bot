@@ -1,3 +1,5 @@
+import logging
+import logging.config
 import os
 import string
 
@@ -11,6 +13,9 @@ from groupme_bot.behaviors import (
 )
 from groupme_bot.groupme_api_client import post_as_bot
 
+
+logging.config.fileConfig('groupme_bot/logging.ini')
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
