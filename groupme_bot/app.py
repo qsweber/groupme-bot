@@ -34,6 +34,7 @@ def index():
 
 def _index_data(data):
     if data.get('sender_type') == 'bot':
+        logger.info('sender is bot, return early')
         return 'ok', 200
 
     if check_double_post.main(data):
@@ -49,8 +50,13 @@ def _index_data(data):
         word.translate(None, string.punctuation)
         for word in data.get('text').lower().split()
     ]
+    if not words:
+        logger.info('no words found, return early')
+        return 'ok', 200
+
     first_word = words.pop(0)
     if first_word != os.environ['GROUPME_BOT_NAME']:
+        logger.info('bot not being invoked, return early')
         return 'ok', 200
 
     second_word = words.pop(0)
@@ -58,6 +64,7 @@ def _index_data(data):
     try:
         func = QUERY_WORD_MAP[second_word]
     except KeyError:
+        logger.info('failed attempt at query with {}'.format(second_word))
         post_as_bot('Sorry, I can\'t help you with that.')
 
         return 'ok', 200
