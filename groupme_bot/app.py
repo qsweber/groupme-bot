@@ -89,6 +89,7 @@ def totals():
 @app.route('/api/v1/already_posted', methods=['GET'])
 def already_posted(message=None):
     message = request.args.get('message')
+    logger.info('checking {}'.format(message))
 
     response_message = check_double_post.is_double_post({
         'text': message,
