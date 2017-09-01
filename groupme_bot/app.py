@@ -1,6 +1,7 @@
 import logging
 import logging.config
 import os
+import re
 import string
 
 from flask import Flask, request, jsonify
@@ -32,6 +33,13 @@ def index():
     return _index_data(data)
 
 
+def _get_words_from_text(text):
+    return [
+        re.sub('[' + string.punctuation + ']', '', word)
+        for word in text.lower().split()
+    ]
+
+
 def _index_data(data):
     if data.get('sender_type') == 'bot':
         logger.info('sender is bot, return early')
@@ -46,10 +54,7 @@ def _index_data(data):
     if reply_random.main(data):
         return 'ok', 200
 
-    words = [
-        word.translate(None, string.punctuation)
-        for word in data.get('text').lower().split()
-    ]
+    words = _get_words_from_text(data.get('text'))
     if not words:
         logger.info('no words found, return early')
         return 'ok', 200

@@ -16,3 +16,15 @@ def test_index_data(data, expected_messages_posted, mocker):
     module._index_data(data)
 
     mocked_logger.assert_has_calls(expected_messages_posted, any_order=False)
+
+
+@pytest.mark.parametrize(
+    'text, expected',
+    [
+        ('abc, d,e gh.!', ['abc', 'de', 'gh']),
+    ]
+)
+def test_get_words_from_text(text, expected):
+    actual = module._get_words_from_text(text)
+
+    assert actual == expected
