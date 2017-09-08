@@ -1,5 +1,7 @@
 # Groupme Bot
 
+[![Coverage Status](https://coveralls.io/repos/github/qsweber/groupme-bot/badge.svg?branch=master)](https://coveralls.io/github/qsweber/groupme-bot?branch=master)
+
 This is a Groupme Bot created primarily for determining who in a group chat has received the
 most likes on their posts. The full set of behaviors is listed below.
 
