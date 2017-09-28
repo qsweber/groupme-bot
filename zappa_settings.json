@@ -1,10 +1,9 @@
 {
     "dev": {
-        "app_function": "groupme_bot.app.app", 
-        "aws_region": "us-west-2", 
-        "profile_name": "default", 
-        "project_name": "groupme-bot", 
-        "runtime": "python2.7", 
+        "app_function": "groupme_bot.app.app",
+        "aws_region": "us-west-2",
+        "project_name": "groupme-bot",
+        "runtime": "python2.7",
         "s3_bucket": "zappa-groupme-bot-5v14k2jnm"
     }
 }
