@@ -1,6 +1,6 @@
 language: python
 python:
-- 3.6
+- 2.7
 install:
 - pip install -r requirements.txt
 - pip install -r test_requirements.txt
@@ -8,7 +8,7 @@ script:
 - pytest --cov groupme_bot
 after_success:
 - coveralls
-- virtualenv -p python3.6 groupme-bot-env && source groupme-bot-env/bin/activate && pip install -r requirements.txt && pip install zappa && zappa update dev
+- virtualenv groupme-bot-env && source groupme-bot-env/bin/activate && pip install -r requirements.txt && pip install zappa && zappa update dev
 env:
   global:
   - secure: FxrQfXmAjX8FxcUn58TFm105Nk6bXt08vNk0tP6ePFQ1/YKzwoWfdaIdvQShYyQhl1nwlPc5boOjD3C6ucr0ZW6X1xf+Kej6BOsfFmz19RqBGWVixIUiK9u1UERLlJ9D5JBPtNsV6bjY0N2613r334U4fPOrrW0/NbJi45aX23wDn014gQg+y/6Z6pNiiIOjpxC+gwuXv8E21bbclSkzaQWHwxwfuOCJD90/esDh+nmw7vzDBnyadAkJ8TvVmyitAU3ML8Q8XAwA/wiuromMVML9sVBTM0NHMmsenwX+dy/R2NasUAQGWrJRPEBebELyDzwR7UnA7poMTGjEqTKWv6J5eoDatFkvakvrMAKZJAd3AbXdWy5cGhwujzLvTdKggEPOz+H3dz0bDVQLM7A+xhNdcbP6/1ELgp1DhNAzCKrkMvf51/7nUUOeNA07hJK1RqbY1pctKEBF3DURa79F4ql50JV0pCTB5m+8z9hd5oC7IwPqEgcxVgM3NB38wVHeBWH/DIwhZ0/uHKiT75ozwSL48F1KpVshPWWYUx5j+NoDoKjbb4jxGm4iJeYBeGv5os7VMlqkVQMzCUPe1wAe6JYT34WboCDxpzG+EGxJHnZARBgX2Yug+uJiZVr66WZihcKO4mzD50zn9gSTvV32Dj+YC7GsdIeDyrSSTB53d4o=
