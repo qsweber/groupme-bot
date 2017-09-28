@@ -6,6 +6,10 @@ install:
 - pip install -r test_requirements.txt
 script:
 - pytest --cov groupme_bot
+- virtualenv test --python python3.6
+- source test/bin/activate
+- pip install requirements.txt
+- pip install zappa
 - zappa update dev
 after_success:
 - coveralls
