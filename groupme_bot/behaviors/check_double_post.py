@@ -39,7 +39,7 @@ def is_double_post(data):
             datetime.datetime.now() - datetime.timedelta(days=lookback)
         )
 
-        logger.info('search through the past {} messages'.format(length(messages)))
+        logger.info('search through the past {} messages'.format(len(messages)))
         
         for message_id, message in messages.items():
             if message_id == data['id']:
