@@ -1,8 +1,14 @@
 import datetime
+import logging
+import logging.config
 import os
 import re
 
 from groupme_bot.groupme_api_client import get_messages, post_as_bot
+
+
+logging.config.fileConfig('groupme_bot/logging.ini')
+logger = logging.getLogger(__name__)
 
 
 def _url_from_text(text):
@@ -16,19 +22,25 @@ def _url_from_text(text):
 
 
 def is_double_post(data):
+    logger.info('checking for url in {}'.format(data['text']))
+    
     test_url = _url_from_text(data['text'])
 
     if not test_url:
         return False
 
+    logger.info('found {}'.format(test_url))
+    
     lookbacks = [
-        1, 7, 30, 365, 700
+        1, 7, 30
     ]
     for lookback in lookbacks:
         messages, user_names = get_messages(
             datetime.datetime.now() - datetime.timedelta(days=lookback)
         )
 
+        logger.info('search through the past {} messages'.format(len(messages)))
+        
         for message_id, message in messages.items():
             if message_id == data['id']:
                 continue
