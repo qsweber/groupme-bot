@@ -41,6 +41,8 @@ def _get_words_from_text(text):
 
 
 def _index_data(data):
+    logger.info('beginning')
+
     if data.get('sender_type') == 'bot':
         logger.info('sender is bot, return early')
         return 'ok', 200
