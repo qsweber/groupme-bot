@@ -23,14 +23,14 @@ def _url_from_text(text):
 
 def is_double_post(data):
     logger.info('checking for url in {}'.format(data['text']))
-    
+
     test_url = _url_from_text(data['text'])
 
     if not test_url:
         return False
 
     logger.info('found {}'.format(test_url))
-    
+
     lookbacks = [
         1, 7, 30
     ]
@@ -40,7 +40,7 @@ def is_double_post(data):
         )
 
         logger.info('search through the past {} messages'.format(len(messages)))
-        
+
         for message_id, message in messages.items():
             if message_id == data['id']:
                 continue

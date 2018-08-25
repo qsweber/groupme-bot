@@ -10,6 +10,7 @@ from groupme_bot.behaviors import (
     check_double_post,
     repeat_user,
     reply_random,
+    reply_tease,
     query_leaderboard,
 )
 from groupme_bot.groupme_api_client import post_as_bot
@@ -54,6 +55,9 @@ def _index_data(data):
         return 'ok', 200
 
     if reply_random.main(data):
+        return 'ok', 200
+
+    if reply_tease.main(data):
         return 'ok', 200
 
     words = _get_words_from_text(data.get('text'))
