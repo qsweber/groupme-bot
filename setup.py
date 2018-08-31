@@ -9,6 +9,7 @@ setup(
     maintainer_email='quinnsweber@gmail.com',
     packages=find_packages(exclude=('tests',)),
     install_requires=(
+        'boto3',
         'flask',
     ),
 )
